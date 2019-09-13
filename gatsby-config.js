@@ -2,7 +2,13 @@ module.exports = {
   siteMetadata: {
     title: `NaN (Not a Number)`,
     author: `John D. Johnson II`,
-    description: `A blog about programming and anything else interesting.`,
+		description: `A blog about programming and anything else interesting.`,
+		aboutMe: `
+I'm a cofounder of a startup where I work as a full-stack Web Developer doing [HTML][1]/[CSS][2], [JavaScript][3], [Node.js][4], and [MongoDB][5]. Some newer projects I'm working on are using the [GRANDstack](https://grandstack.io) with Node.js. I really enjoy working with new flavors of JavaScript like ES6. 
+
+I have a B.S. in Computer Science from Utah State University (USU). My favorite class I had at University was probably Discrete Mathematics which includes some of each of the following: set theory, logic, graph theory, combinatorics, and number theory. I also enjoyed USU's Computational Geometry and Advanced Algorithms course.
+
+<img src="https://projecteuler.net/profile/johnsonjo.png">`,
     // siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
       twitter: `johnfoobar`,
@@ -30,30 +36,56 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        extensions: [".mdx", ".md"],
-        // defaultLayouts: {
-        //   default: require.resolve("./src/templates/blog-post.js")
-        // },
-        plugins: [
-          // `gatsby-remark-katex`,
+        defaultLayouts: {
+          default: require.resolve("./src/components/layout.js")
+        },
+        extensions: [".md", ".mdx"],
+        // workaround: https://github.com/gatsbyjs/gatsby/issues/16422#issuecomment-518985316
+        plugins: [`gatsby-remark-images`, `gatsby-remark-autolink-headers`],
+        
+        gatsbyRemarkPlugins: [
+          `gatsby-remark-katex`,
+          `gatsby-remark-images`,
+          `gatsby-remark-autolink-headers`,
           {
-            resolve: `gatsby-remark-images`,
+            resolve: `gatsby-remark-prismjs`,
             options: {
-              maxWidth: 1024
-            }
-          }
-          // {
-          //   resolve: `gatsby-remark-responsive-iframe`,
-          //   options: {
-          //     wrapperStyle: `margin-bottom: 1.0725rem`
-          //   }
-          // },
-          // `gatsby-remark-prismjs`,
-          // `gatsby-remark-copy-linked-files`,
-          // `gatsby-remark-smartypants`
+              classPrefix: 'language-',
+              inlineCodeMarker: null,
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          },
         ]
       }
     },
+    // {
+    //   resolve: `gatsby-plugin-mdx`,
+    //   options: {
+    //     extensions: [".mdx", ".md"],
+    //     // defaultLayouts: {
+    //     //   default: require.resolve("./src/templates/blog-post.js")
+    //     // },
+    //     plugins: [
+    //       // `gatsby-remark-katex`,
+    //       {
+    //         resolve: `gatsby-remark-images`,
+    //         options: {
+    //           maxWidth: 1024
+    //         }
+    //       }
+    //       // {
+    //       //   resolve: `gatsby-remark-responsive-iframe`,
+    //       //   options: {
+    //       //     wrapperStyle: `margin-bottom: 1.0725rem`
+    //       //   }
+    //       // },
+    //       // `gatsby-remark-prismjs`,
+    //       // `gatsby-remark-copy-linked-files`,
+    //       // `gatsby-remark-smartypants`
+    //     ]
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
@@ -73,7 +105,7 @@ module.exports = {
         icon: `content/assets/gatsby-icon.png`
       }
     },
-    `gatsby-plugin-offline`,
+    // `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-typography`,
@@ -81,6 +113,5 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`
       }
     },
-    `gatsby-plugin-mdx`
   ]
 };

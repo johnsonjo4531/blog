@@ -1,0 +1,54 @@
+body * {
+	box-sizing: border-box;
+}
+
+.main {
+	min-height: 100vh;
+	background-color: #222;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	font-size: 16px;
+}
+
+.left {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	flex: 1;
+	flex-basis: 50%;
+	padding: 1em;
+}
+
+.left .gatsby-image-wrapper {
+	flex-basis: 250px;
+	flex-shrink: 0;
+}
+
+.right {
+	min-height: 100%;
+	background-color: white;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10%;
+	flex: 1;
+	flex-basis: 50%;
+}
+
+.right p {
+	margin-bottom: 3em;
+}
+
+.right p:first-child {
+	margin-top: 1.5em;
+}
+
+@media (max-width: 1000px) {
+	.main {
+		flex-direction: column;
+	}
+}

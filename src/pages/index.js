@@ -1,75 +1,56 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from "react";
+import ReactMarkdown from 'react-markdown';
+import { useStaticQuery, graphql, Link } from "gatsby";
+import Image from "gatsby-image";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import "./root-styles.css";
+import SocialLinks from "../components/socialLinks";
 
-class BlogIndex extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMdx.edges
-
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="All posts" />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <article key={node.fields.slug}>
-              <header>
-                <h3
-                  style={{
-                    marginBottom: rhythm(1 / 4),
-                  }}
-                >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                    {title}
-                  </Link>
-                </h3>
-                <small>{node.frontmatter.date}</small>
-              </header>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                />
-              </section>
-            </article>
-          )
-        })}
-      </Layout>
-    )
-  }
-}
-
-export default BlogIndex
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
+export default () => {
+  const data = useStaticQuery(graphql`
+    query ProfilePicQuery {
+      avatar: file(absolutePath: { regex: "/profile-pic.jpeg/" }) {
+        childImageSharp {
+          fixed(width: 250, height: 250) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
-    }
-  }
-`
+			site {
+        siteMetadata {
+					author
+          aboutMe
+        }
+      }
+		}
+	`);
+
+	const { author, aboutMe } = data.site.siteMetadata;
+	
+  return (
+    <div className="main">
+      <div className="left">
+        <h1>John Johnson's site</h1>
+        <Image
+          fixed={data.avatar.childImageSharp.fixed}
+          alt={author}
+          style={{
+            marginRight: 0,
+            marginBottom: 0,
+            minWidth: 50,
+            borderRadius: `100%`
+          }}
+          imgStyle={{
+            borderRadius: `50%`
+          }}
+        />
+        <SocialLinks />
+				<h3>Visit my Blog: <Link to="/blog">NaN (Not a Number)</Link></h3>
+      </div>
+      <div className="right">
+			<ReactMarkdown source={aboutMe} escapeHtml={false}>
+			</ReactMarkdown>
+			</div>
+    </div>
+  );
+};

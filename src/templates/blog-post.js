@@ -7,6 +7,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { rhythm, scale } from "../utils/typography";
 import "katex/dist/katex.min.css";
+import "./blog-style.css";
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -85,17 +86,16 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostById($id: String!) {
     site {
       siteMetadata {
         title
         author
       }
     }
-    mdx(fields: { slug: { eq: $slug } }) {
+    mdx(id: { eq: $id }) {
       body
       id
-      excerpt(pruneLength: 160)
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

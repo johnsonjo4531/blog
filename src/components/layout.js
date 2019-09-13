@@ -1,13 +1,18 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { Link } from "gatsby";
 
-import { rhythm, scale } from "../utils/typography"
+import { rhythm, scale } from "../utils/typography";
 
 class Layout extends React.Component {
   render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
+    const { location, title, children } = this.props;
+    if (!location) {
+      // we are in a non page mdx component;
+      return children;
+    }
+    const rootPath = `${__PATH_PREFIX__}/`;
+    const blogRootPath = `${__PATH_PREFIX__}/blog`;
+    let header;
 
     if (location.pathname === rootPath) {
       header = (
@@ -15,49 +20,74 @@ class Layout extends React.Component {
           style={{
             ...scale(1.5),
             marginBottom: rhythm(1.5),
-            marginTop: 0,
+            marginTop: 0
           }}
         >
           <Link
             style={{
               boxShadow: `none`,
               textDecoration: `none`,
-              color: `inherit`,
+              color: `inherit`
             }}
             to={`/`}
           >
             {title}
           </Link>
         </h1>
-      )
-    } else {
+      );
+    } else if (
+      location.pathname === blogRootPath ||
+      location.pathname === blogRootPath + "/"
+    ) {
       header = (
-        <h3
+        <h1
           style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
+            ...scale(1.5),
+            marginBottom: rhythm(1.5),
+            marginTop: 0
           }}
         >
           <Link
             style={{
               boxShadow: `none`,
               textDecoration: `none`,
-              color: `inherit`,
+              color: `inherit`
+            }}
+            to={`/blog`}
+          >
+            {title}
+          </Link>
+        </h1>
+      );
+    } else {
+      header = (
+        <h3
+          style={{
+            fontFamily: `Montserrat, sans-serif`,
+            marginTop: 0
+          }}
+        >
+          <Link
+            style={{
+              boxShadow: `none`,
+              textDecoration: `none`,
+              color: `inherit`
             }}
             to={`/`}
           >
             {title}
           </Link>
         </h3>
-      )
+      );
     }
     return (
       <div
         style={{
           marginLeft: `auto`,
           marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          width: "1200px",
+          maxWidth: "80%",
+          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
         }}
       >
         <header>{header}</header>
@@ -68,8 +98,8 @@ class Layout extends React.Component {
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    )
+    );
   }
 }
 
-export default Layout
+export default Layout;

@@ -6,8 +6,10 @@
  */
 
 import React from "react";
+import Social from "./socialLinks";
 import { useStaticQuery, graphql } from "gatsby";
 import Image from "gatsby-image";
+import { Link } from "gatsby";
 
 import { rhythm } from "../utils/typography";
 
@@ -24,21 +26,18 @@ const Bio = () => {
       site {
         siteMetadata {
           author
-          social {
-            twitter
-            github
-            linkedin
-          }
         }
       }
     }
   `);
 
-  const { author, social } = data.site.siteMetadata;
+  const { author } = data.site.siteMetadata;
   return (
     <div
       style={{
-        display: `flex`,
+				display: `flex`,
+				justifyContent: "space-between",
+				alignItems: "flex-start",
         marginBottom: rhythm(2.5)
       }}
     >
@@ -57,14 +56,10 @@ const Bio = () => {
       />
       <p>
         Written by <strong>{author}</strong> who lives and works in Utah.
-      </p>
-      <p>
-        Social Links:
-        {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>,{` `}
-        <a href={`https://github.com/${social.github}`}>Github</a>,{` `}
-        <a href={`https://linkedin.com/in/${social.linkedin}/`}>LinkedIn</a>
-      </p>
+			</p> 
+			<Link to="/">About Me</Link>
+			<br/>
+      <Social/>
     </div>
   );
 };
