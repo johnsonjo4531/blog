@@ -11,6 +11,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import Image from "gatsby-image";
 import { Link } from "gatsby";
 
+import "./bio.css";
 import { rhythm } from "../utils/typography";
 
 const Bio = () => {
@@ -35,11 +36,13 @@ const Bio = () => {
   return (
     <div
       style={{
-				display: `flex`,
-				justifyContent: "space-between",
-				alignItems: "flex-start",
+        display: `flex`,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
         marginBottom: rhythm(2.5)
       }}
+      className="bio"
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
@@ -56,10 +59,10 @@ const Bio = () => {
       />
       <p>
         Written by <strong>{author}</strong> who lives and works in Utah.
-			</p> 
-			<Link to="/">About Me</Link>
-			<br/>
-      <Social/>
+      </p>
+      <Link to="/">About Me</Link>
+      <br />
+      <Social />
     </div>
   );
 };

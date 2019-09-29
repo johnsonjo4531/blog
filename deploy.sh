@@ -1,3 +1,4 @@
+# https://gist.github.com/cobyism/4730490
 #!/bin/sh
 # 
 if [ -z "$1" ]
@@ -7,4 +8,4 @@ then
 fi
 
 # https://stackoverflow.com/a/33178233/2066736
-git push origin `git subtree split --prefix $1 master`:gh-pages --force
+git push origin `git subtree split --prefix "$1" master`:gh-pages --force

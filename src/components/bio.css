@@ -1,0 +1,10 @@
+@media (max-width: 1000px) {
+	.bio {
+		flex-direction: column !important;
+		justify-content: space-around !important;
+	}
+
+	.bio > * {
+		margin: 7px;
+	}
+}

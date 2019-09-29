@@ -4,5 +4,14 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  box-shadow: none;
+	box-shadow: none;
+}
+
+.code-example {
+	padding: 1em;
+	border: 1px solid black;
+}
+
+:not(pre) > code[class*="language-"] {
+	border-radius: 0;
 }
