@@ -1,5 +1,5 @@
 ---
-title: How to Quickly Create Your Own Feature Rich Bookmarklet
+title: How to Quickly Create Your Own Feature Rich Bookmarklets
 date: "2019-09-29T05:05:59.688Z"
 description: "So, if you've ever wondered how to make a bookmarklet it's basically a link whose href looks like this ..."
 published: true
@@ -7,11 +7,11 @@ published: true
 
 So, you want to allow users to run arbitrary code on a page you don't have access to or influence over.
 One solution is to create a browser plugin, but there is another solution that is actually quite old, but
-well supported and it's called a bookmarklet. The way you generally use a bookmarklet as a user is to drag
+still well supported and it's called a bookmarklet. The way you generally use a bookmarklet as a user is to drag
 it to your bookmarks bar and click it on a given page.
 
 So, if you've ever wondered how to make a bookmarklet it's basically a link whose href looks like this
-`href="javascript:<your-code-here>;` where `<your-code-here>` is a JavaScript expression. Here's an example bookmarklet with it's html that appends Hello World to the document.
+`href="javascript:<your-code-here>;"` where `<your-code-here>` is a JavaScript expression. Here's an example bookmarklet with its html that appends Hello World to the document.
 
 ```html code-example
 <a
@@ -32,11 +32,13 @@ which basically is just a function expression that invokes/calls itself like so:
 })();
 ```
 
-Although you can't exactly use this method directly by just writing
-a multiline function inside your a tag since html attribute strings only allow a single
-line. So, you can get around this by creating a function and programmatically
-turn it into a string and wrapping that with parenthesis to turn it into an IIFE.
-That could like like this:
+You can use this method directly by just writing
+a multiline function inside your `a` tag's href attribute surrounded by the previously pointed
+out `javascript: ;` statement. Your editor probably won't have syntax highlighting and linting features
+available inside that string, so development could be tedious.
+So, you can get around this by creating a function and programmatically
+turning it into a string and wrapping that with parenthesis to turn it into an IIFE and inserting that into
+the a's href. That could like like this:
 
 ```js code-example
 // Bookmarklet making function:
@@ -62,16 +64,22 @@ function main() {
 }
 ```
 
+That's pretty awesome! Now anything we write in the function `main` will be code that
+is run by our bookmarklet. We just have to distribute the `a` tag code given in the
+textarea. This is pretty much the finished product for productively creating bookmarklets,
+but there is a warning ahead when using this method and also some cool bookmarklets I have made
+in the past as examples down below.
+
 Try clicking the above link check your browser console to see it run. Also, hover
 over the link in the preview and notice that all the javascript appears on one line.
 This property of a bookmarklet actually adds a few complications to writing your
-functionality in main. For example if we place a single line comment in our main
+functionality in the main function. For example if we place a single line comment in our main
 function it will no longer work. Another way that things could go wrong is if
 your code does not have semicolons. Though semicolons are avoidable most the time in
 JavaScript semicolons are not avoidable in the case of the single line bookmarklet. Here's
-an example of a comment ruining the code.
+an example of a comment in `main` that ruins the bookmarklet's execution.
 
-<h6>This code example is broken on purpose for explanatory purposes:</h6>
+<h6>WARNING: This code example is broken on purpose for explanatory purposes:</h6>
 
 ```js code-example
 // Bookmarklet making function:
@@ -100,7 +108,7 @@ function main() {
 
 So, this code doesn't work. Hover over the link in the preview and notice how it comments the whole rest of the code.
 You could also check your browser console for errors when you click the link which in Chrome states
-"Uncaught SyntaxError: unexpected end of input".
+"Uncaught SyntaxError: unexpected end of input". However, though you can't use single line comments you should be able to use multiline comments just fine.
 
 So, that's basically it. Go have some fun and create something cool! Just to give you some ideas here are some bookmarklets
 I have made in the past.
