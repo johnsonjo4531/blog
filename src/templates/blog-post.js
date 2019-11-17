@@ -43,7 +43,6 @@ class BlogPostTemplate extends React.Component {
 							{post.frontmatter.date}
 						</p>
 					</header>
-						{console.log(post.frontmatter)}
 					{!post.frontmatter.published && <UnpublishedArticleWarning />}
 					<MDXProvider components={components}>
 						<MDXRenderer>{post.body}</MDXRenderer>

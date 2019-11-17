@@ -3,8 +3,10 @@ import "./CodePreview.css";
 import libHTML from 'raw-loader!../../static/code-preview.html'
 
 const getBlobURL = (code, type) => {
-  const blob = new Blob([code], { type })
-  return URL.createObjectURL(blob)
+	if (typeof window !== "undefined" && window.location) {
+		const blob = new Blob([code], { type });	
+  	return URL.createObjectURL(blob);
+	}
 }
 
 export default props => {

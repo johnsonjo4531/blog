@@ -102,7 +102,7 @@ I have a B.S. in Computer Science from Utah State University (USU). My favorite 
 				background_color: `#ffffff`,
 				theme_color: `#663399`,
 				display: `minimal-ui`,
-				icon: `content/assets/gatsby-icon.png`,
+				icon: `content/assets/site-logo.png`,
 			},
 		},
 		// `gatsby-plugin-offline`,
