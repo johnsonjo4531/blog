@@ -11,6 +11,7 @@
     "@babel/core": "^7.6.0",
     "@mdx-js/mdx": "^1.0.0",
     "@mdx-js/react": "^1.0.0",
+    "concurrently": "^5.0.0",
     "gatsby": "^2.13.73",
     "gatsby-image": "^2.2.10",
     "gatsby-plugin-feed": "^2.3.7",
@@ -20,6 +21,7 @@
     "gatsby-plugin-offline": "^2.2.7",
     "gatsby-plugin-react-helmet": "^3.1.4",
     "gatsby-plugin-sharp": "^2.2.21",
+    "gatsby-plugin-typescript": "^2.1.15",
     "gatsby-plugin-typography": "^2.3.3",
     "gatsby-remark-autolink-headers": "^2.1.10",
     "gatsby-remark-copy-linked-files": "^2.1.7",
@@ -48,7 +50,8 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.4"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [
@@ -61,8 +64,12 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+		"build": "concurrently 'yarn build:gatsby' 'yarn build:parcel'",
+		"build:gatsby": "gatsby build",
+		"build:parcel": "parcel build -d static src-static/code-preview.html",
+    "develop": "concurrently 'yarn develop:gatsby' 'yarn develop:parcel'",
+    "develop:gatsby": "gatsby develop",
+    "develop:parcel": "parcel watch -d static src-static/code-preview.html",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",

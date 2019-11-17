@@ -9,6 +9,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 import "./blog-style.css"
+import { UnpublishedArticleWarning } from "../components/unpublished-warning";
 
 class BlogPostTemplate extends React.Component {
 	render() {
@@ -42,6 +43,8 @@ class BlogPostTemplate extends React.Component {
 							{post.frontmatter.date}
 						</p>
 					</header>
+						{console.log(post.frontmatter)}
+					{!post.frontmatter.published && <UnpublishedArticleWarning />}
 					<MDXProvider components={components}>
 						<MDXRenderer>{post.body}</MDXRenderer>
 					</MDXProvider>
@@ -82,7 +85,7 @@ class BlogPostTemplate extends React.Component {
 					</ul>
 				</nav>
 			</Layout>
-		)
+		);
 	}
 }
 
@@ -103,6 +106,7 @@ export const pageQuery = graphql`
 				title
 				date(formatString: "MMMM DD, YYYY")
 				description
+				published
 			}
 		}
 	}

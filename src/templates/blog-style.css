@@ -1,3 +1,53 @@
+@media (max-width: 600px) {
+	h1 {
+		font-size: 5vw;
+	}
+	h2 {
+		font-size: 4.5vw;
+	}
+	h3 {
+		font-size: 4vw;
+	}
+	h4 {
+		font-size: 3.5vw;
+	}
+	h5 {
+		font-size: 3vw;
+	}
+	h6 {
+		font-size: 2.5vw;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #333;
+		color: white;
+	}
+
+	iframe {
+		background-color: white;
+	}
+
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: white;
+	}
+
+	img {
+		opacity: 0.75;
+		transition: opacity 0.5s ease-in-out;
+	}
+	img:hover {
+		opacity: 1;
+	}
+}
+
 h1 a,
 h2 a,
 h3 a,
@@ -7,6 +57,11 @@ h6 a {
 	box-shadow: none;
 }
 
+p {
+	margin-top: 1.25em;
+	margin-bottom: 1.75em;
+}
+
 .code-example {
 	padding: 1em;
 	border: 1px solid black;
@@ -14,4 +69,73 @@ h6 a {
 
 :not(pre) > code[class*="language-"] {
 	border-radius: 0;
+}
+
+pre {
+	border-radius: var(--border-radius);
+}
+
+kbd,
+code {
+	padding: 0.25em 0.25em;
+	border-radius: var(--border-radius);
+	font-family: "Courier New", Courier, monospace;
+}
+
+kbd {
+	background-color: #ddd;
+	border: 1px solid #000;
+	color: #000;
+	text-transform: uppercase;
+}
+
+code {
+	background-color: #555;
+	border: 1px solid #eee;
+	color: #fff;
+}
+
+a {
+	color: #1cf;
+}
+
+details {
+	background-color: slategrey;
+	color: white;
+	padding: 0.5em;
+	border: 1px solid #555;
+	border-radius: var(--border-radius);
+	margin: 1em 0;
+}
+summary {
+	margin: 0.5em 0;
+}
+
+summary:focus {
+	border: none;
+	box-shadow: none;
+	outline: none;
+}
+
+aside {
+	display: block;
+	background-color: slategrey;
+	color: white;
+	padding: 0.7em;
+	margin: 1em 0;
+	border-radius: var(--border-radius);
+}
+
+aside:before {
+	content: "Side Note. ";
+	color: #ddd;
+}
+
+aside.aside-warning {
+	border: 2px solid #ff7;
+}
+
+aside.aside-warning:before {
+	content: "Warning! ";
+	color: #ddd;
 }

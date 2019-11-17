@@ -44,7 +44,8 @@ const Bio = () => {
       }}
       className="bio"
     >
-      <Image
+			<p>
+			<Image
         fixed={data.avatar.childImageSharp.fixed}
         alt={author}
         style={{
@@ -57,10 +58,13 @@ const Bio = () => {
           borderRadius: `50%`
         }}
       />
+			</p>
       <p>
         Written by <strong>{author}</strong> who lives and works in Utah.
       </p>
-      <Link to="/">About Me</Link>
+			<p>
+				<Link to="/">About Me</Link>
+			</p>
       <br />
       <Social />
     </div>

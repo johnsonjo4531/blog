@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "gatsby";
-// import { MDXProvider } from "@mdx-js/react"
-// import * as DesignSystem from "./designSystem.js";
 
 import { rhythm, scale } from "../utils/typography";
 
@@ -31,7 +29,7 @@ class Layout extends React.Component {
               textDecoration: `none`,
               color: `inherit`
             }}
-            to={`/`}
+            to={rootPath}
           >
             {title}
           </Link>
@@ -55,7 +53,7 @@ class Layout extends React.Component {
               textDecoration: `none`,
               color: `inherit`
             }}
-            to={`/blog`}
+            to={blogRootPath}
           >
             {title}
           </Link>
@@ -75,7 +73,7 @@ class Layout extends React.Component {
               textDecoration: `none`,
               color: `inherit`
             }}
-            to={`/`}
+            to={blogRootPath}
           >
             {title}
           </Link>
@@ -83,24 +81,24 @@ class Layout extends React.Component {
       );
     }
     return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          width: "1200px",
-          maxWidth: "80%",
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
-        }}
-      >
-        <header>{header}</header>
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    );
+			<div
+				style={{
+					marginLeft: `auto`,
+					marginRight: `auto`,
+					width: "1200px",
+					maxWidth: "80%",
+					padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+				}}
+			>
+				<header>{header}</header>
+				<main>{children}</main>
+				<footer>
+					© {new Date().getFullYear()}, Built with
+					{` `}
+					<a href="https://www.gatsbyjs.org">Gatsby</a>
+				</footer>
+			</div>
+		);
   }
 }
 

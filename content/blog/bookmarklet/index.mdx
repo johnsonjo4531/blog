@@ -1,7 +1,6 @@
 ---
 title: How to Quickly Create Your Own Feature Rich Bookmarklets
 date: "2019-09-29T05:05:59.688Z"
-description: "So, if you've ever wondered how to make a bookmarklet it's basically a link whose href looks like this ..."
 published: true
 ---
 
@@ -317,7 +316,7 @@ I have made in the past.
     cursor: pointer;
 
     /* Hides the slider so custom styles can be added */
-    background: transparent;
+    background: transparent; 
     border-color: transparent;
     color: transparent;
   }
@@ -380,7 +379,7 @@ I have made in the past.
     max-width: 100px;
     flex: 1 1 0;
     width: 100%;
-    min-width: 50%;
+    min-width: 50%; 
   }
   `);
       const el = document.getElementById("PlaybackSetter");
@@ -458,281 +457,6 @@ I have made in the past.
       return () => id++;
     }
   </script>
-  <div>
-    <a
-      id="link-bookmarklet1"
-      href='
-  javascript:
-  (async function main () {
-  const mainId = "PlaybackChanger-v0-0-0";
-  function log (...args) {
-    window[mainId + "debugOn"] &amp;&amp; console.log(...args);
-  }
-  const timeout = (ms) => {
-    let id, reject;
-    const p = new Promise((res,rej) => {
-      reject = rej;
-      id = setTimeout(res, ms);
-    });
-    p.clear = () => (clearTimeout(id), reject());
-    return p;
-  };
-  function appendStyle (css) {
-    var style = document.createElement(&apos;style&apos;);
-    style.type = &apos;text/css&apos;;
-    style.innerHTML = css;
-    document.getElementsByTagName(&apos;head&apos;)[0].appendChild(style);
-  }
-  function AsyncLock() {
-    const p = () => new Promise(next => (nextIter = next));
-    var nextIter,
-      next = p();
-    const nextP = () => {
-      const result = next;
-      next = result.then(() => p());
-      return result;
-    };
-    nextIter();
-    return Object.assign(
-      {},
-      {
-        async *[Symbol.asyncIterator]() {
-          try {
-            yield nextP();
-          } finally {
-            nextIter();
-          }
-        }
-      }
-    );
-  }
-  const pollLock = AsyncLock();
-  async function* poller (ms=500) {
-    for await (const _ of pollLock) {
-      yield;
-      while (true) {
-        await timeout(ms);
-        yield;
-      }
-    }
-  }
-  async function changePlaybackRate (rate) {
-    window[mainId + "currentPoller"] &amp;&amp; window[mainId + "currentPoller"].return();
-    const el = document.getElementById("PlaybackRate");
-    el.innerHTML = "";
-    el.appendChild(document.createTextNode("" + rate.toFixed(2)));
-    window[mainId + "currentPoller"] = poller();
-    for await (const _ of window[mainId + "currentPoller"]) {
-      log("changing video players to playback rate of: " + rate.toFixed(2));
-      const videos = document.querySelectorAll("video");
-      videos.forEach(v => {
-        if(v.playbackRate != rate) {
-          v.playbackRate = rate;
-        }
-      });
-      if(!window[mainId + "pollingOpen"]) {
-         return;
-      }
-    }
-  }
-  function getPlaybackRate () {
-    const videos = document.querySelectorAll("video");
-    const playingVid = [...videos].find(v => !v.paused);
-    return window[mainId + "rate"] || Number(playingVid ? playingVid.playbackRate : videos[0] ? videos[0].playbackRate : 1);
-  }
-  const div = document.createElement("div");
-  if(document.getElementById(mainId)) {
-    document.getElementById(mainId).outerHTML = "";
-  }
-  document.body.appendChild(div);
-  div.outerHTML = `
-  <div id="${mainId}">
-    <h1 id="PlaybackRate">${getPlaybackRate().toFixed(2)}</h1>
-    <input id="PlaybackSetter" type="range" value="${getPlaybackRate()}"" list="tickmarks" min="0.25" max="3" step="0.25">
-    <div class="PlaybackCheckboxes">
-      <label for="PlaybackPoll">Polling:</label><br/>
-      <input id="PlaybackPoll" type="checkbox" ${window[mainId + "pollingOpen"]? "checked" : ""} />
-    </div>
-    <div class="PlaybackCheckboxes">
-      <label for="PlaybackDebug">Debug:</label><br/>
-      <input id="PlaybackDebug" type="checkbox" ${window[mainId + "debugOn"] ? "checked" : ""} />
-    </div>
-    <button id="${mainId}-skip">skip</button>
-    <div id="${mainId}-close">X</div>
-  </div>
-  `;
-  appendStyle(`
-  #${mainId}-close {
-    font-size: 20px;
-    font-weight: 800;
-    cursor: pointer;
-  }
-
-  #${mainId}-close:hover {
-    color: #f0f0f0;
-  }
-
-  #${mainId} button {
-    background-color: #f0f0f0;
-    padding: 10px;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-
-  #${mainId} button:hover {
-    background-color: #fff;
-    cursor: pointer;
-  }
-
-  #${mainId} {
-    box-sizing: border-box;
-    font-size: 10px;
-    position: fixed;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    top: 0;
-    right: 0;
-    padding: 1em;
-    opacity: 0.7;
-    background-color: black;
-    z-index: 99999;
-    width: 500px;
-    max-width: 100vw;
-  }
-
-  #${mainId} input[type=range] {
-    -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
-    width: 100%; /* Specific width is required for Firefox. */
-    background: transparent; /* Otherwise white in Chrome */
-  }
-
-  #${mainId} input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-  }
-
-  #${mainId} input[type=range]:focus {
-    outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-  }
-
-  #${mainId} input[type=range]::-ms-track {
-    width: 100%;
-    cursor: pointer;
-
-    /* Hides the slider so custom styles can be added */
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-
-  #${mainId} input[type=&apos;range&apos;] {
-    -webkit-appearance: none !important;
-    background-color: #555;
-    height: 7px;
-    width: 100%;
-    padding: 4px;
-    border-radius: 3.5px;
-  }
-
-  #${mainId} input[type=&apos;range&apos;]::-webkit-slider-thumb {
-    -webkit-appearance: none !important;
-    height: 14px;
-    width: 14px;
-    border: 1px solid #ccc;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-color: #fcfcfc;
-  }
-
-  /* All the same stuff for Firefox */
-  #${mainId} input[type=range]::-moz-range-thumb {
-    height: 14px;
-    width: 14px;
-    border: 1px solid #ccc;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-color: #fcfcfc;
-  }
-
-  /* All the same stuff for IE */
-  #${mainId} input[type=range]::-ms-thumb {
-    height: 14px;
-    width: 14px;
-    border: 1px solid #ccc;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background-color: #fcfcfc;
-  }
-
-  #${mainId} > * {
-    margin: 0 0.5em;
-    flex: auto;
-  }
-
-  #${mainId} * {
-    box-sizing: border-box;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
-  }
-
-  #PlaybackRate {
-    font-size: 2.25em !important;
-    font-weight: 800;
-  }
-
-  #PlaybackSetter {
-    max-width: 100px;
-    flex: 1 1 0;
-    width: 100%;
-    min-width: 50%;
-  }
-  `);
-  const el = document.getElementById("PlaybackSetter");
-  let timer;
-  el.addEventListener("input", async function (ev) {
-    timer &amp;&amp; timer.clear();
-    const rate = Number(this.value);
-    window[mainId + "rate"] = rate;
-    changePlaybackRate(rate);
-    try {
-      timer = timeout(5000);
-      await timer;
-      document.getElementById(mainId).outerHTML = "";
-    } catch (err) {
-    }
-  });
-  document.getElementById("PlaybackPoll").addEventListener("input", (ev) => {
-    window[mainId + "pollingOpen"] = ev.target.checked;
-    if(!window[mainId + "pollingOpen"]) {
-      window[mainId + "currentPoller"] &amp;&amp; window[mainId + "currentPoller"].return();
-    } else {
-      changePlaybackRate(window[mainId + "rate"]);
-    }
-  });
-  document.getElementById("PlaybackDebug").addEventListener("input", (ev) => {
-    window[mainId + "debugOn"] = ev.target.checked;
-  });
-  document.getElementById(`${mainId}-skip`).addEventListener("click", () => {
-    const v = [...document.querySelectorAll("video")].find(v => !v.paused);
-    if(v) {
-      v.currentTime = v.duration;
-    }
-  });
-  document.getElementById(`${mainId}-close`).addEventListener("click", () => {
-    document.getElementById(mainId).outerHTML = "";
-  });
-})()
-  '
-      >Video Playback Rate Changer</a
-    >
-    <p>Creates UI for changing Video Playback rates.</p>
-    <textarea id="output-bookmarklet1"></textarea>
-    <hr />
-  </div>
-
-  <div id="rbm-extension-installed-rbwmlom"></div>
 </body>
 ```
 
@@ -843,7 +567,6 @@ setInterval(spawnNyanCat, 500)
 ```html preview-only
 <body translate="no">
   <div>Drag the link to your bookmarks bar and click it.</div>
-  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script id="rendered-js">
     // edit main function and add all your javascript into it.
@@ -877,7 +600,6 @@ body {
         name: "",
         description: "",
       };
-
       options = $.extend({}, defaults, options);
       var { mainFn, title, id, name, description } = options;
       var html = $(`<div>
@@ -901,148 +623,7 @@ body {
     function idGen(id = 0) {
       return () => id++;
     }
-    //# sourceURL=pen.js
   </script>
-  <div>
-    <a
-      id="link-bookmarklet1"
-      href="
-  javascript:
-  (function main() {
-  var style = document.createElement('style');
-  style.type = 'text/css';
-  style.innerHTML = `
-body {
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
-}
-  `;
-  document.getElementsByTagName('head')[0].appendChild(style);
-})()
-  "
-      >Narrow Body</a
-    >
-    <p>
-      This is an example bookmarklet. Add Javascript to the main function to
-      have it executed.
-    </p>
-    <textarea id="output-bookmarklet1"></textarea>
-    <hr />
-  </div>
-
-  <div id="rbm-extension-installed-rbwmlom"></div>
-</body>
-```
-
-[codepen](https://codepen.io/johnsonjo4531/pen/BVKjKJ)
-
-```html preview-only
-<body translate="no">
-  <div>Drag the link to your bookmarks bar and click it.</div>
-  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script id="rendered-js">
-    // edit main function and add all your javascript into it.
-    var nextId = idGen();
-    toBookmarklet({
-      mainFn: main,
-      title: "Double Space",
-      id: "bookmarklet1",
-      name: "Example Bookmarklet",
-      description: `This is an example bookmarklet. Add Javascript to the main function to have it executed.`,
-    });
-
-    function main() {
-      var style = document.createElement("style");
-      style.type = "text/css";
-      style.innerHTML = `
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-li {
-	line-height: 2em;
-	margin: 0.75em 0;
-}
-  `;
-      document.getElementsByTagName("head")[0].appendChild(style);
-    }
-
-    function toBookmarklet(options) {
-      const defaults = {
-        mainFn: main,
-        title: "",
-        id: nextId(),
-        name: "",
-        description: "",
-      };
-
-      options = $.extend({}, defaults, options);
-      var { mainFn, title, id, name, description } = options;
-      var html = $(`<div>
-  <a id="link-${id}">${title}</a>
-  <p>${description}</p>
-  <textarea id="output-${id}"></textarea>
-  <hr>
-</div>`);
-      var link = html.find(`#link-${id}`);
-      link.attr(
-        "href",
-        `
-  javascript:
-  (${mainFn.toString()})()
-  `
-      );
-      html.find(`#output-${id}`).val((link[0] || {}).outerHTML);
-      html.appendTo(document.body);
-    }
-
-    function idGen(id = 0) {
-      return () => id++;
-    }
-    //# sourceURL=pen.js
-  </script>
-  <div>
-    <a
-      id="link-bookmarklet1"
-      href="
-  javascript:
-  (function main() {
-  var style = document.createElement('style');
-  style.type = 'text/css';
-  style.innerHTML = `
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a,
-li {
-	line-height: 2em;
-	margin: 0.75em 0;
-}
-  `;
-  document.getElementsByTagName('head')[0].appendChild(style);
-})()
-  "
-      >Double Space</a
-    >
-    <p>
-      This is an example bookmarklet. Add Javascript to the main function to
-      have it executed.
-    </p>
-    <textarea id="output-bookmarklet1"></textarea>
-    <hr />
-  </div>
-
-  <div id="rbm-extension-installed-rbwmlom"></div>
 </body>
 ```
 
@@ -1051,7 +632,6 @@ li {
 ```html preview-only
 <body translate="no">
   <div>Drag the link to your bookmarks bar and click it.</div>
-  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script id="rendered-js">
     // edit main function and add all your javascript into it.
@@ -1084,7 +664,6 @@ body {
         name: "",
         description: "",
       };
-
       options = $.extend({}, defaults, options);
       var { mainFn, title, id, name, description } = options;
       var html = $(`<div>
@@ -1108,35 +687,6 @@ body {
     function idGen(id = 0) {
       return () => id++;
     }
-    //# sourceURL=pen.js
   </script>
-  <div>
-    <a
-      id="link-bookmarklet1"
-      href="
-  javascript:
-  (function main() {
-  var style = document.createElement('style');
-  style.type = 'text/css';
-  style.innerHTML = `
-body {
-  margin-top: 20vh;
-  margin-bottom: 20vh;
-}
-  `;
-  document.getElementsByTagName('head')[0].appendChild(style);
-})()
-  "
-      >Margin Top/Bottom</a
-    >
-    <p>
-      This is an example bookmarklet. Add Javascript to the main function to
-      have it executed.
-    </p>
-    <textarea id="output-bookmarklet1"></textarea>
-    <hr />
-  </div>
-
-  <div id="rbm-extension-installed-rbwmlom"></div>
 </body>
 ```

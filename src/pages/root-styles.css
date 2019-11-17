@@ -1,5 +1,6 @@
 body * {
 	box-sizing: border-box;
+	--border-radius: 3px;
 }
 
 .main {
@@ -22,6 +23,16 @@ body * {
 	padding: 1em;
 }
 
+.left p,
+.left h1,
+.left h2,
+.left h3,
+.left h4,
+.left h5,
+.left h6 {
+	color: white;
+}
+
 .left .gatsby-image-wrapper {
 	flex-basis: 250px;
 	flex-shrink: 0;
@@ -37,6 +48,16 @@ body * {
 	padding: 10%;
 	flex: 1;
 	flex-basis: 50%;
+}
+
+.right p,
+.right h1,
+.right h2,
+.right h3,
+.right h4,
+.right h5,
+.right h6 {
+	color: black;
 }
 
 .right p {
@@ -55,4 +76,25 @@ body * {
 
 .link-no-underline {
 	box-shadow: none;
+}
+
+.terminal-symbol {
+	color: slategray;
+	opacity: 0.7;
+	display: inline-block;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+}
+
+.alert-warning {
+	background-color: #eee;
+	padding: 0.7em;
+	color: #000;
+	border-radius: var(--border-radius);
+	border: 2px solid #ff7;
 }
