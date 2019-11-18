@@ -1,11 +1,17 @@
+body {
+	--border-radius: 3px;
+	--logo-grey: #555;
+	--logo-green: #0b8185;
+	--logo-red: #403831;
+}
+
 body * {
 	box-sizing: border-box;
-	--border-radius: 3px;
 }
 
 .main {
 	min-height: 100vh;
-	background-color: #222;
+	background-color: #333;
 	color: white;
 	display: flex;
 	flex-direction: row;
@@ -15,6 +21,8 @@ body * {
 .left {
 	min-height: 100%;
 	display: flex;
+	background: center cover
+		url("../../content/assets/hexagon-pattern-gradient.png");
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
@@ -40,14 +48,32 @@ body * {
 
 .right {
 	min-height: 100%;
-	background-color: white;
-	color: black;
+	position: relative;
+	color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding: 10%;
 	flex: 1;
 	flex-basis: 50%;
+	overflow: hidden;
+}
+
+.right > * {
+	z-index: 2;
+}
+
+.right:before {
+	position: absolute;
+	top: -15em;
+	bottom: -15em;
+	left: -15em;
+	right: -15em;
+	content: " ";
+	background: repeat 50px url("../../content/assets/hexagon-pattern-dark.png"),
+		linear-gradient(to bottom right, var(--logo-green), var(--logo-red));
+	transform-origin: center;
+	transform: rotate(30deg);
 }
 
 .right p,
@@ -57,7 +83,7 @@ body * {
 .right h4,
 .right h5,
 .right h6 {
-	color: black;
+	color: inherit;
 }
 
 .right p {

@@ -111,6 +111,19 @@ summary {
 	margin: 0.5em 0;
 }
 
+button {
+	display: block;
+	width: 100%;
+	background-color: transparent;
+	border: 1px solid #777;
+	padding: 0.5em;
+	color: inherit;
+}
+
+button.rerun:before {
+	content: "▶ ";
+}
+
 summary:focus {
 	border: none;
 	box-shadow: none;

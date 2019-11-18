@@ -1,21 +1,21 @@
-import React from "react"
-import { Link, graphql } from "gatsby"
+import React from "react";
+import { Link, graphql } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { MDXProvider } from "@mdx-js/react";
 import components from "../components/designSystem";
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
-import "./blog-style.css"
+import Bio from "../components/bio";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import { rhythm, scale } from "../utils/typography";
+import "./blog-style.css";
 import { UnpublishedArticleWarning } from "../components/unpublished-warning";
 
 class BlogPostTemplate extends React.Component {
 	render() {
-		const post = this.props.data.mdx
-		const siteTitle = this.props.data.site.siteMetadata.title
-		const { previous, next } = this.props.pageContext
+		const post = this.props.data.mdx;
+		const siteTitle = this.props.data.site.siteMetadata.title;
+		const { previous, next } = this.props.pageContext;
 
 		return (
 			<Layout location={this.props.location} title={siteTitle}>
@@ -23,6 +23,7 @@ class BlogPostTemplate extends React.Component {
 					title={post.frontmatter.title}
 					description={post.frontmatter.description || post.excerpt}
 				/>
+				<Bio />
 				<article>
 					<header>
 						<h1
@@ -88,7 +89,7 @@ class BlogPostTemplate extends React.Component {
 	}
 }
 
-export default BlogPostTemplate
+export default BlogPostTemplate;
 
 export const pageQuery = graphql`
 	query BlogPostById($id: String!) {
@@ -109,4 +110,4 @@ export const pageQuery = graphql`
 			}
 		}
 	}
-`
+`;

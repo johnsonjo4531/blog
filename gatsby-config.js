@@ -114,4 +114,4 @@ I have a B.S. in Computer Science from Utah State University (USU). My favorite 
 			},
 		},
 	],
-}
+};
