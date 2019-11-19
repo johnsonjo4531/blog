@@ -2,7 +2,12 @@ body {
 	--border-radius: 3px;
 	--logo-grey: #555;
 	--logo-green: #0b8185;
+	--logo-green-bright: #14d5db;
+
 	--logo-red: #403831;
+	--logo-red-bright: #ac9683;
+	--logo-text: #fff;
+	--logo-text-bright: #000;
 }
 
 body * {
@@ -11,18 +16,15 @@ body * {
 
 .main {
 	min-height: 100vh;
-	background-color: #333;
 	color: white;
 	display: flex;
 	flex-direction: row;
 	font-size: 16px;
 }
-
 .left {
 	min-height: 100%;
 	display: flex;
-	background: center cover
-		url("../../content/assets/hexagon-pattern-gradient.png");
+	background: linear-gradient(to bottom right, #fff, #ddd);
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
@@ -38,22 +40,66 @@ body * {
 .left h4,
 .left h5,
 .left h6 {
-	color: white;
+	background: linear-gradient(
+		to bottom right,
+		var(--logo-green),
+		var(--logo-red)
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+	.left {
+		min-height: 100%;
+		display: flex;
+		background: linear-gradient(to bottom right, #000, #333);
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		flex: 1;
+		flex-basis: 50%;
+		padding: 1em;
+	}
+
+	.left p,
+	.left h1,
+	.left h2,
+	.left h3,
+	.left h4,
+	.left h5,
+	.left h6 {
+		background: linear-gradient(
+			to bottom right,
+			var(--logo-green),
+			var(--logo-red)
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.3);
+	}
+}
+
+.left a {
+	background: none;
+	-webkit-background-clip: none;
+	-webkit-text-fill-color: #1cf;
+	color: #1cf;
 }
 
 .left .gatsby-image-wrapper {
-	flex-basis: 250px;
+	flex-basis: auto;
 	flex-shrink: 0;
 }
 
 .right {
 	min-height: 100%;
 	position: relative;
-	color: white;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 10%;
+	align-items: center;
+	padding: 2em 10%;
 	flex: 1;
 	flex-basis: 50%;
 	overflow: hidden;
@@ -63,17 +109,94 @@ body * {
 	z-index: 2;
 }
 
-.right:before {
+.hexagon {
+	position: relative;
+	overflow: hidden;
+}
+
+.hexagon > * {
+	position: relative;
+	z-index: 2;
+}
+
+.blur-background:before,
+.blur-background:after {
+	/* -webkit-filter: blur(1px);
+	-moz-filter: blur(1px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px); */
+	filter: blur(6px);
+}
+
+.gradient.hexagon {
+	color: black;
+	text-shadow: 0.125em 0.125em 0 rgba(255, 255, 255, 0.75);
+}
+
+.gradient.hexagon a {
+	color: rgb(10, 104, 128);
+}
+
+.hexagon:after {
 	position: absolute;
-	top: -15em;
-	bottom: -15em;
-	left: -15em;
-	right: -15em;
+	top: -1000em;
+	bottom: -1000em;
+	left: -1000em;
+	right: -1000em;
 	content: " ";
-	background: repeat 50px url("../../content/assets/hexagon-pattern-dark.png"),
-		linear-gradient(to bottom right, var(--logo-green), var(--logo-red));
+	background: repeat 50px url("../../content/assets/hexagon-pattern-light.png");
 	transform-origin: center;
 	transform: rotate(30deg);
+}
+
+.gradient:before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: " ";
+	background: linear-gradient(
+		to bottom right,
+		var(--logo-green-bright),
+		var(--logo-red-bright)
+	);
+}
+
+@media (prefers-color-scheme: dark) {
+	.gradient.hexagon {
+		color: white;
+		text-shadow: 0.15em 0.15em 0 rgba(0, 0, 0, 0.75);
+	}
+	.gradient.hexagon a {
+		color: #1cf;
+	}
+
+	.hexagon:after {
+		position: absolute;
+		top: -1000em;
+		bottom: -1000em;
+		left: -1000em;
+		right: -1000em;
+		content: " ";
+		background: repeat 50px url("../../content/assets/hexagon-pattern-dark.png");
+		transform-origin: center;
+		transform: rotate(30deg);
+	}
+
+	.gradient:before {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		content: " ";
+		background: linear-gradient(
+			to bottom right,
+			var(--logo-green),
+			var(--logo-red)
+		);
+	}
 }
 
 .right p,

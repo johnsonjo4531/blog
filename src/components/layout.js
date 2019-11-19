@@ -15,13 +15,6 @@ class Layout extends React.Component {
 		const blogRootPath = `${__PATH_PREFIX__}/blog`;
 		let header, outsideHeader;
 		const headerContainerStyle = {
-			position: "absolute",
-			top: 0,
-			bottom: 0,
-			left: 0,
-			right: 0,
-			width: "100%",
-			height: "100%",
 			display: "flex",
 			flexDirection: "column",
 			justifyContent: "space-around",
@@ -31,7 +24,6 @@ class Layout extends React.Component {
 			...scale(1.5),
 			marginBottom: rhythm(1.5),
 			marginTop: 0,
-			color: "white",
 		};
 		if (location.pathname === rootPath) {
 			header = (
@@ -58,26 +50,27 @@ class Layout extends React.Component {
 						position: "relative",
 					}}
 				>
-					<div style={headerContainerStyle}>
-						<h1
-							style={{
-								marginTop: 0,
-								fontSize: "27vmin",
-								color: "white",
-							}}
-						>
-							NaN
-						</h1>
-						<h2 style={{ color: "white" }}>(Not a Number)</h2>
-					</div>
 					<Hexagons
 						style={{
+							...headerContainerStyle,
 							width: "100vw",
 							maxWidth: "100%",
 							height: "600px",
 							maxHeight: "97vh",
 						}}
-					/>
+					>
+						<div style={headerContainerStyle}>
+							<h1
+								style={{
+									marginTop: 0,
+									fontSize: "27vmin",
+								}}
+							>
+								NaN
+							</h1>
+							<h2>(Not a Number)</h2>
+						</div>
+					</Hexagons>
 				</div>
 			);
 		} else {
@@ -87,8 +80,11 @@ class Layout extends React.Component {
 						position: "relative",
 					}}
 				>
-					<Hexagons style={headerContainerStyle} />
-					<div style={{ position: "relative", padding: "0.7em" }}>
+					<Hexagons
+						style={{
+							...headerContainerStyle,
+						}}
+					>
 						<h1
 							style={{
 								...headerStyle,
@@ -110,7 +106,8 @@ class Layout extends React.Component {
 								{title}
 							</Link>
 						</h1>
-					</div>
+					</Hexagons>
+					<div style={{ position: "relative" }}></div>
 				</div>
 			);
 		}

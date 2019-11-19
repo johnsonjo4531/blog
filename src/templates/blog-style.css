@@ -19,9 +19,13 @@
 	}
 }
 
+body {
+	background: linear-gradient(to bottom right, #fff, #ddd);
+}
+
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #333;
+		background: linear-gradient(to bottom right, #000, #333);
 		color: white;
 	}
 

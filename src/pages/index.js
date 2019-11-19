@@ -1,10 +1,10 @@
-import React from "react"
-import ReactMarkdown from "react-markdown"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import Image from "gatsby-image"
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import { useStaticQuery, graphql, Link } from "gatsby";
+import Image from "gatsby-image";
 
-import "./root-styles.css"
-import SocialLinks from "../components/socialLinks"
+import "./root-styles.css";
+import SocialLinks from "../components/socialLinks";
 
 export default () => {
 	const data = useStaticQuery(graphql`
@@ -23,9 +23,9 @@ export default () => {
 				}
 			}
 		}
-	`)
+	`);
 
-	const { author, aboutMe } = data.site.siteMetadata
+	const { author, aboutMe } = data.site.siteMetadata;
 
 	return (
 		<div className="main">
@@ -37,11 +37,17 @@ export default () => {
 					style={{
 						marginRight: 0,
 						marginBottom: 0,
-						minWidth: 50,
-						borderRadius: `100%`,
+						width: "50vw",
+						maxHeight: "250px",
+						maxWidth: "250px",
+						height: "50vw",
 					}}
 					imgStyle={{
 						borderRadius: `50%`,
+						width: "50vw",
+						height: "50vw",
+						maxHeight: "250px",
+						maxWidth: "250px",
 					}}
 				/>
 				<SocialLinks />
@@ -49,7 +55,7 @@ export default () => {
 					Visit my Blog: <Link to="/blog">NaN (Not a Number)</Link>
 				</h3>
 			</div>
-			<div className="right">
+			<div className="right hexagon gradient">
 				<ReactMarkdown source={aboutMe} escapeHtml={false}></ReactMarkdown>
 				<a
 					className="link-no-underline"
@@ -65,5 +71,5 @@ export default () => {
 				</a>
 			</div>
 		</div>
-	)
-}
+	);
+};
