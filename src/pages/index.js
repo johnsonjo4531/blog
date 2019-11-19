@@ -2,6 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useStaticQuery, graphql, Link } from "gatsby";
 import Image from "gatsby-image";
+import { Helmet } from "react-helmet";
 
 import "./root-styles.css";
 import SocialLinks from "../components/socialLinks";
@@ -30,7 +31,10 @@ export default () => {
 	return (
 		<div className="main">
 			<div className="left">
-				<h1>John Johnson's site</h1>
+				<Helmet>
+					<meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+				</Helmet>
+				<h1>About: John D. Johnson II</h1>
 				<Image
 					fixed={data.avatar.childImageSharp.fixed}
 					alt={author}
@@ -57,6 +61,9 @@ export default () => {
 			</div>
 			<div className="right hexagon gradient">
 				<ReactMarkdown source={aboutMe} escapeHtml={false}></ReactMarkdown>
+				<a className="link-no-underline" href="https://projecteuler.net">
+					<img src="https://projecteuler.net/profile/johnsonjo.png" />
+				</a>
 				<a
 					className="link-no-underline"
 					href="https://stackoverflow.com/users/2066736/john"

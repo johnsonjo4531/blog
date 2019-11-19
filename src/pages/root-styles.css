@@ -1,13 +1,50 @@
 body {
-	--border-radius: 3px;
+	--logo-hexagon-img: repeat 50px
+		url("../../content/assets/hexagon-pattern-light.png");
 	--logo-grey: #555;
-	--logo-green: #0b8185;
-	--logo-green-bright: #14d5db;
+	--logo-green: #14d5db;
+	--dividing-border: 5px solid #000d;
 
-	--logo-red: #403831;
-	--logo-red-bright: #ac9683;
-	--logo-text: #fff;
-	--logo-text-bright: #000;
+	--iframe-color: #fff;
+
+	--logo-a: rgb(10, 104, 128);
+	--logo-red: #ac9683;
+	--logo-gradient: linear-gradient(
+		to bottom right,
+		var(--logo-green),
+		var(--logo-red)
+	);
+	--logo-text: #000;
+	--logo-text-shadow: 0.125em 0.125em 0 rgba(255, 255, 255, 0.75);
+	--content-a: #1cf;
+	--content-bg: #fff;
+	--content-gradient: linear-gradient(to bottom right, #fff, #ddd);
+	--content-text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
+
+	--border-radius: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		--logo-grey: #555;
+		--logo-green: #0b8185;
+		--logo-a: #1cf;
+		--dividing-border: 5px solid #ffffffdd;
+
+		--iframe-color: #ccc;
+
+		--logo-red: #403831;
+		--logo-text: #fff;
+		--logo-hexagon-img: repeat 50px
+			url("../../content/assets/hexagon-pattern-dark.png");
+
+		--logo-text-shadow: 0.15em 0.15em 0 rgba(0, 0, 0, 0.75);
+		--content-bg: #000;
+		--content-gradient: linear-gradient(to bottom right, #000, #333);
+		--content-text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.3);
+		--content-text: #fff;
+		--content-a: #1cf;
+	}
 }
 
 body * {
@@ -16,7 +53,6 @@ body * {
 
 .main {
 	min-height: 100vh;
-	color: white;
 	display: flex;
 	flex-direction: row;
 	font-size: 16px;
@@ -24,7 +60,7 @@ body * {
 .left {
 	min-height: 100%;
 	display: flex;
-	background: linear-gradient(to bottom right, #fff, #ddd);
+	background: var(--content-gradient);
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
@@ -40,52 +76,17 @@ body * {
 .left h4,
 .left h5,
 .left h6 {
-	background: linear-gradient(
-		to bottom right,
-		var(--logo-green-bright),
-		var(--logo-red-bright)
-	);
+	background: var(--logo-gradient);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-}
-
-@media (prefers-color-scheme: dark) {
-	.left {
-		min-height: 100%;
-		display: flex;
-		background: linear-gradient(to bottom right, #000, #333);
-		flex-direction: column;
-		justify-content: space-around;
-		align-items: center;
-		flex: 1;
-		flex-basis: 50%;
-		padding: 1em;
-	}
-
-	.left p,
-	.left h1,
-	.left h2,
-	.left h3,
-	.left h4,
-	.left h5,
-	.left h6 {
-		background: linear-gradient(
-			to bottom right,
-			var(--logo-green),
-			var(--logo-red)
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.3);
-	}
+	text-shadow: var(--content-text-shadow);
 }
 
 .left a {
 	background: none;
 	-webkit-background-clip: none;
-	-webkit-text-fill-color: #1cf;
-	color: #1cf;
+	-webkit-text-fill-color: var(--content-a);
+	color: var(--content-a);
 }
 
 .left .gatsby-image-wrapper {
@@ -130,12 +131,12 @@ body * {
 }
 
 .gradient.hexagon {
-	color: black;
-	text-shadow: 0.125em 0.125em 0 rgba(255, 255, 255, 0.75);
+	color: var(--logo-text);
+	text-shadow: var(--logo-text-shadow);
 }
 
 .gradient.hexagon a {
-	color: rgb(10, 104, 128);
+	color: var(--logo-a);
 }
 
 .hexagon:after {
@@ -145,7 +146,7 @@ body * {
 	left: -1000em;
 	right: -1000em;
 	content: " ";
-	background: repeat 50px url("../../content/assets/hexagon-pattern-light.png");
+	background: var(--logo-hexagon-img);
 	transform-origin: center;
 	transform: rotate(30deg);
 }
@@ -157,47 +158,7 @@ body * {
 	left: 0;
 	right: 0;
 	content: " ";
-	background: linear-gradient(
-		to bottom right,
-		var(--logo-green-bright),
-		var(--logo-red-bright)
-	);
-}
-
-@media (prefers-color-scheme: dark) {
-	.gradient.hexagon {
-		color: white;
-		text-shadow: 0.15em 0.15em 0 rgba(0, 0, 0, 0.75);
-	}
-	.gradient.hexagon a {
-		color: #1cf;
-	}
-
-	.hexagon:after {
-		position: absolute;
-		top: -1000em;
-		bottom: -1000em;
-		left: -1000em;
-		right: -1000em;
-		content: " ";
-		background: repeat 50px url("../../content/assets/hexagon-pattern-dark.png");
-		transform-origin: center;
-		transform: rotate(30deg);
-	}
-
-	.gradient:before {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		content: " ";
-		background: linear-gradient(
-			to bottom right,
-			var(--logo-green),
-			var(--logo-red)
-		);
-	}
+	background: var(--logo-gradient);
 }
 
 .right p,
@@ -218,7 +179,16 @@ body * {
 	margin-top: 1.5em;
 }
 
+.left {
+	border: 0;
+	border-right: var(--dividing-border);
+}
+
 @media (max-width: 1000px) {
+	.left {
+		border: 0;
+		border-bottom: var(--dividing-border);
+	}
 	.main {
 		flex-direction: column;
 	}

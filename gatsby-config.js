@@ -6,9 +6,7 @@ module.exports = {
 		aboutMe: `
 I'm a cofounder of a startup where I work as a full-stack Web Developer doing [HTML][1]/[CSS][2], [JavaScript][3], [Node.js][4], and [MongoDB][5]. Some newer projects I'm working on are using the [GRANDstack](https://grandstack.io) with Node.js. I really enjoy working with new flavors of JavaScript like ES6. 
 
-I have a B.S. in Computer Science from Utah State University (USU). My favorite class I had at University was probably Discrete Mathematics which includes some of each of the following: set theory, logic, graph theory, combinatorics, and number theory. I also enjoyed USU's Computational Geometry and Advanced Algorithms course.
-
-<img src="https://projecteuler.net/profile/johnsonjo.png">`,
+I have a B.S. in Computer Science from Utah State University (USU). My favorite class I had at University was probably Discrete Mathematics which includes some of each of the following: set theory, logic, graph theory, combinatorics, and number theory. I also enjoyed USU's Computational Geometry and Advanced Algorithms course.`,
 		// siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
 		social: {
 			twitter: `johnfoobar`,

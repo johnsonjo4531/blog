@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import { Helmet } from "react-helmet";
 
 import { rhythm, scale } from "../utils/typography";
 import Hexagons from "./hexagons-sketch";
@@ -113,6 +114,9 @@ class Layout extends React.Component {
 		}
 		return (
 			<div>
+				<Helmet>
+					<meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
+				</Helmet>
 				{outsideHeader && <header>{outsideHeader}</header>}
 				<div
 					style={{
