@@ -1,0 +1,137 @@
+---
+title: Long-Division Proof
+date: '2020-01-03T00:29:08.516Z'
+description: >
+  I read a comment on Hacker News somewhat recenlty about
+  long division being unintuitive ... I feel a proof is the best 
+  way to see something intuitively.
+  Here is my attempt at proving the long division algorithm. 
+published: false
+tags:
+  - math
+  - algebra
+---
+
+Though I have finished the proof on paper I have not written up the explanation for it here!!!
+
+## Background: 
+
+I read a comment on Hacker News somewhat recently about
+the general long division algorithm being unintuitive.
+This guy stated his credentials and the comment after his
+said surely he could come up with a proof in around 15-30 minutes,
+so I like Math and I like to think I'm atleast somewhat good at it
+for not being a mathematician, so I challenged myself to write up a proof.
+
+## Justification for a proof
+
+You might ask well why a proof, and I just have to say 
+I feel a proof is the best way to see something intuitively.
+Here is my attempt at proving the long division algorithm. 
+If you notice any mistakes please let me know on twitter
+or on a github issue on my blog or by any other means you 
+can contact me with.
+
+First I'll show an example of the long-division algorithm
+the way I learned it in school. This is honestly what I first
+wrote down to get the correct mental model of the algorithm.
+
+### Example
+
+So, first we will divide 128 by 5 just as an example.
+
+<!-- https://github.com/KaTeX/KaTeX/issues/1319#issuecomment-389753671 -->
+
+We set up the equation:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{} \\
+5\overline{\smash{)}128} \\
+
+\end{array}
+$$
+
+We first notice five doesn't go into 1 so we do our first division of five on 12 instead
+five goes into 12 two times so we write two on top and subtract $2\times5$ or $10$:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{2} \\
+5\overline{\smash{)}128} \\
+\phantom{}{-\underline{10}}
+\end{array}
+$$
+
+
+that subtraction produces two:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{2} \\
+5\overline{\smash{)}128} \\
+\phantom{}{-\underline{10}} \\
+\phantom{-1}{2}
+\end{array}
+$$
+
+Then we bring down the 8:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{2} \\
+5\overline{\smash{)}128} \\
+\phantom{}{-\underline{10}\smash{\downarrow}} \\
+\phantom{-1}{28}
+\end{array}
+$$
+
+and repeat until we get:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{25\frac{3}{5}} \\
+5\overline{\smash{)}128\phantom{3}} \\
+\phantom{}{-\underline{10}\smash{\downarrow}} \\
+\phantom{-1}{28} \\
+\phantom{1}{-\underline{25}} \\
+\phantom{-12}{3}
+\end{array}
+$$
+
+## Clearing up Some Hand-wavyness
+
+So, there are some parts there that may seem a little mysterious and hand-wavy, so lets start by clearing those up.
+First of all at this step where we subtract 10:
+
+$$
+\begin{array}{l}
+\phantom{5;1}{2} \\
+5\overline{\smash{)}128} \\
+\phantom{}{-\underline{10}}
+\end{array}
+$$
+
+We are really or atleast can really divide 5 from 12, but you can think of it as we are dividing 5 from 120
+and subtracting 100 which five goes into 100 twenty times.
+
+$$
+\begin{array}{l}
+\phantom{5;1}{20} \\
+5\overline{\smash{)}128} \\
+\phantom{}{-\underline{100}}
+
+\end{array}
+$$
+
+This mental model will come in handy for our proof. For example notice that the right side of this equation is our result rewritten:
+
+TODO:
+
+
+
+
+
+
+
+

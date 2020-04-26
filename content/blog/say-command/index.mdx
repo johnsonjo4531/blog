@@ -2,6 +2,9 @@
 title: Getting your Mac to Speak Large Texts
 date: "2019-11-17T06:51:10.009Z"
 published: false
+tags:
+  - bash
+  - TTS
 ---
 
 First of all this tutorial will only be useful if you have a Mac.
@@ -253,33 +256,90 @@ ffmpeg -i temp.aiff output.mp3
 
 ## Putting Everything Together
 
-So let's put all three commands for TTS in sequence and open Quicktime Player: <aside>The `&&` command says only do the next command
-if the previous command succeeded. The `\` allows us to escape the linebreaks so we can do multiple lines</aside> You'll
-probably want to put all these lines of commands in a text editor before executing them, so that you can edit them before hand.
+Well you can manually do each of the above everytime you need to speak any text or you could create a little function that
+can be run from any terminal session. We'll use the bash_profile which runs each time your terminal is started.
+The below function should be put into your `~/.bash_profile` file on your mac (if that file doesn't exist create it and paste this in there).
 
 ```bash
-pandoc -t plain -o temp.txt input.docx \
-    && say -v Daniel -o temp.aiff < temp.txt \
-    && ffmpeg -i temp.aiff output.mp3 \
-    && rm temp.aiff && rm temp.txt \
-    && open -a 'Quicktime Player' output.mp3
+# #!/bin/bash
+
+# Takes a text file (.txt,.epub,.mobi,etc.) and outputs the spoken text as an audio file
+saymp3help () {
+  echo 'saymp3 -i <INPUT_TEXT_FILE> -o <OUTPUT_AUDIO_FILE> -v <VOICE> [-s </regex to split on/>]
+  -i=input file (any pandoc input file that can be output to text)
+  -o=output file (an audio file type)
+  -v=voice (use `say -v ?` for a list of voices)
+  -s=split_regex the Regex to split by chapter with (default is /^Chapter.*\d.*/)
+  '
+}
+
+# Check if the help option is set
+if [[ $* == *-h* ]] || [[ $* == *--help* ]]; then
+  saymp3help;
+  exit 0;
+fi
+
+# Check that all options are set
+if [[ $* != *-v* ]] && [[ $* != *-i* ]] && [[ $* != *-o* ]]; then
+  echo "You must provide the -v, -i, and -o flags/options/arguments";
+  saymp3help;
+  exit 1;
+fi
+
+declare OPTIND option input output voice split_regex=/^Chapter.*\d.*/
+
+# extract options and their arguments into variables.
+while getopts "i:o:v:s:" option ; do
+    case "${option}" in
+        i)
+            input=${OPTARG}  ;;
+        o)
+            output=${OPTARG}  ;;
+        v)
+            voice=${OPTARG} ;;
+        s)
+            split_regex=${OPTARG} ;;
+        h)
+            saymp3help; exit 0 ;;
+        -) shift $((${OPTIND} - 1)) ; break ;;
+        *) saymp3help; exit 1 ;;
+    esac
+done
+shift $((${OPTIND}-1))
+
+tempdir="$TMPDIR""saymp3"
+
+echo "Converting to Markdown"
+mkdir "$tempdir";
+# Convert the input text file to markdown to get headings
+pandoc -o "$tempdir/temp.md" "$input";
+# gcsplit line and iteration logic were made by my Brother-in-Law Matthew Dayley.
+# Split the markdown-file by chapter through a regex
+echo "Splitting into Chapter files"
+gcsplit -s -z -f "$tempdir/chapter" -b "%.3d" "$tempdir/temp.md" "$split_regex" {*};
+# # https://stackoverflow.com/a/965072/2066736
+filename=$(basename -- "$output");
+extension="${filename##*.}";
+outdir=$(dirname "$output")
+files=$(for i in `ls "$tempdir/"chapter*`; do echo $(basename -- "$i"); done;);
+chapters=`echo $(echo $files | wc -w)`
+# # Loop through and modify 
+for i in $files; do
+  # Run the conversion from text/epub/etc. to mp3
+  echo "Creating plain text for $i of $chapters:" && \
+    pandoc -t plain -o "$tempdir/temp.txt" "$tempdir/$i" && \
+    echo "Converting text to speech for $i of $chapters:" && \
+    say -f "$tempdir/temp.txt" -v "$voice" -o "$tempdir/temp.aiff" && \
+    echo "Converting aiff to other music file type for $i of $chapters:" && \
+    ffmpeg -y -i "$tempdir/temp.aiff" "$outdir/audio_$i.$extension";
+done;
 ```
 
-One last note in the above code block all you need to supply to the command is some
-sort of document in place of `input.docx` and possibly a voice denoted here by `say -v Daniel`
-and you'll get an `output.mp3`.
+Once that is in your profile either source your bash_profile with `source ~/.bash_profile` or just restart your terminal
+and you should be able to use the function like so:
 
-Here's the above code annotated in case you forgot anything:
-
-```bash
-# Convert doc to plain text
-pandoc -t plain -o temp.txt input.docx \
-    # Speak the document into a audio file format
-    && say -v Daniel -o temp.aiff < temp.txt \
-    # Convert to mp3
-    && ffmpeg -i temp.aiff output.mp3 \
-    # Remove our temp files
-    && rm temp.aiff && rm temp.txt \
-    # Open quicktime player
-    && open -a 'Quicktime Player' output.mp3
 ```
+saymp3 -i <INPUT_TEXT_FILE> -o <OUTPUT_AUDIO_FILE> -v <VOICE>
+```
+
+Where `<INPUT_FILE>` is some .pub,.txt,.mobi,etc.

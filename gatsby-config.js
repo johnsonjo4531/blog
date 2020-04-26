@@ -94,8 +94,8 @@ I have a B.S. in Computer Science from Utah State University (USU). My favorite 
 		{
 			resolve: `gatsby-plugin-manifest`,
 			options: {
-				name: `Gatsby Starter Blog`,
-				short_name: `GatsbyJS`,
+				name: `NaN (Not a Number) blog by John D. Johnsonß`,
+				short_name: `NaN`,
 				start_url: `/`,
 				background_color: `#ffffff`,
 				theme_color: `#663399`,

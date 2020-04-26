@@ -9,3 +9,13 @@ module.exports.getPostsByPublishType = posts =>
 		},
 		[[], []]
 	);
+
+module.exports.getTagsWithPosts = posts => {
+	const tags = new Map();
+	for(const post of posts) {
+		for(const tag of post.node.frontmatter.tags) {
+			tags.set(tag, [...(tags.get(tag) || []), post]);
+		}
+	}
+	return tags;
+}

@@ -1,4 +1,4 @@
-const { getPostsByPublishType } = require("./gatsby-node-utils");
+const { getPostsByPublishType, getTagsWithPosts } = require("./gatsby-node-utils");
 
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
@@ -58,6 +58,21 @@ exports.createPages = async ({ graphql, actions }) => {
 
 	publishedPosts.forEach(createPageForPost);
 	unpublishedPosts.forEach(createPageForPost);
+
+	// const tags = getTagsWithPosts();
+
+	// [...tags.entries()].forEach((tag) => {
+	// 	createPage({
+	// 		path: post.node.fields.slug,
+	// 		component: blogPost,
+	// 		context: {
+	// 			id: post.node.id,
+	// 			// slug: post.node.fields.slug,
+	// 			previous,
+	// 			next,
+	// 		},
+	// 	});
+	// })
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -69,7 +84,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: `slug`,
       node,
-      value: path.join("blog", node.frontmatter.published ? "" : "unpublished", "" + date.getFullYear(), "" + date.getMonth(), value)
+      value: path.join("blog", node.frontmatter.published ? "" : "unpublished", "" + date.getFullYear(), "" + (date.getMonth() + 1) , value)
     });
   }
 };

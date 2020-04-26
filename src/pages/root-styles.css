@@ -3,7 +3,7 @@ body {
 		url("../../content/assets/hexagon-pattern-light.png");
 	--logo-grey: #555;
 	--logo-green: #14d5db;
-	--dividing-border: 5px solid #000d;
+	--dividing-border: 5px solid #000;
 
 	--iframe-color: #fff;
 
@@ -29,7 +29,7 @@ body {
 		--logo-grey: #555;
 		--logo-green: #0b8185;
 		--logo-a: #1cf;
-		--dividing-border: 5px solid #ffffffdd;
+		--dividing-border: 5px solid #fff;
 
 		--iframe-color: #ccc;
 

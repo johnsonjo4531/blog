@@ -1,0 +1,61 @@
+---
+title: Applications of the Multiplicative and Additive Principle of Combinatorics in Programming.
+date: 2020-02-07T03:43:23.030Z
+published: false
+tags:
+  - combinatorics
+  - multiplicative-principle
+  - additive-principle
+  - programming
+  - number-systems
+---
+
+I'm going to give a run through of two basic combinatorics principles and there applications to programming. So, first I'll answer what is combinatorics:
+
+Combinatorics is a branch of Mathematics that basically teaches you how
+to count the total number of "things" in some given situation (This is by no means a formal definition.) For example I could tell you that the number
+of different permutations of a deck of face-cards (think of this as all
+the different ways the deck could be shuffled) is $52!$ which can be written out as: $52 \cdot 51 \cdot 50 \cdot \ldots \cdot 1$; The triple dots (a.k.a. ellipsis) there just mean repeat the pattern until
+you hit the next part. That number is roughly $10^{67}$ which to give you an idea of how large that is there are roughly
+$10^{80}$ atoms in the observable universe. So, that's honestly a small fraction of $\left(\frac{1}{10^{13}}\right)$ the size of the
+number of atoms in the observable universe, but it's still massive. So, to me atleast
+it is suprising that something so common place holds so much hidden possibility and complexity. This large number coming from
+practically nothing is what some refer to as a combinatorial explosion.
+
+So, why as a programmer should you care about combinatorics? Well the answer is that sometimes it's useful to count
+how long a program will run in terms of it's input or how much memory it uses while it runs we usually refer to this in terms of "Big Oh" notation. If an
+algorithm runs in $O(n!)$ (pronounced "Big oh of n factorial".) then for large $n$ that means it will take a long time to.
+
+## Multiplicative principle:
+
+So, how do we know that $52!$ is the number of permutations of a deck of cards. Well we can use something
+called the multiplicative principle of combinatorics (multiplicative gets its name from multiplication).
+Here's a quick definition of this rule:
+
+> If there are $a$ ways of doing something and $b$ ways of doing another thing, then there are $a \cdot b$ ways of performing both actions. - [Wikipedia (Rule of Product)](https://en.wikipedia.org/wiki/Rule_of_product)
+
+So, how can we build an intuitive understanding of this? Below I'll try and show a spatial example which just relates the above equation to the area
+of a rectangle.
+
+## Grilled Cheese Sandwiches and Area
+
+Say you want to make a grilled cheese sandwich and there are two types of breads and three types of cheese.
+How many possible sandwiches can you make if with each sandwich you can only use one of the types of bread
+and one of the types of cheese. Well, the key words "how many" might rightfully signify to you that this is a combinatorics
+problem. If you noticed we can apply the definition of the multiplicative principle to our grilled cheese sandwiches we can have $2$ ways
+of having bread and $3$ ways of having cheese so we have $3 \cdot 2=6$ ways of having them together.
+Since this is a smaller problem it is possible to approach by listing/enumerating every possibility.
+Say we have white and wheat bread, and provolone, cheddar, and american cheese we could write it out as a 2D matrix of possibilities:
+
+| Possible sandwiches |                 |                  |
+| ------------------- | --------------- | ---------------- |
+| white & provolone   | white & cheddar | white & american |
+| wheat & provolone   | wheat & cheddar | wheat & american |
+
+Now the only problem with writing out all possible solutions for every problem is that it would take us too long, so being the amateur and budding
+mathematicians we are we can hopefully learn the power of correctly generalizing from first principles and applying those to larger problems.
+Notice going horizontally across the columns of the table we change cheeses while sticking with the same bread, and across the vertical we change breads
+sticking with the same cheeses.
+We can intuitively see there are $3 \cdot 2=6$ possible combinations by noticing that each
+cell of the above table counts as one valid sandwich and that the table is made up of three columns (the same number as our cheeses) and two columns (the same number as our breads).
+Since we can count the number of cells to get the total number of sandwiches we can now compute the number of cells by $\text{rows} \cdot \text{columns} = \text{cells}$.

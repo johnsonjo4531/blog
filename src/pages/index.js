@@ -62,7 +62,10 @@ export default () => {
 			<div className="right hexagon gradient">
 				<ReactMarkdown source={aboutMe} escapeHtml={false}></ReactMarkdown>
 				<a className="link-no-underline" href="https://projecteuler.net">
-					<img src="https://projecteuler.net/profile/johnsonjo.png" />
+					<img
+						alt="project-euler user johnsonjo"
+						src="https://projecteuler.net/profile/johnsonjo.png"
+					/>
 				</a>
 				<a
 					className="link-no-underline"
