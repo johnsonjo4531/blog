@@ -1,4 +1,4 @@
-import InputSudokuModel from "../Models/SudokuModel.js";
+import InputSudokuModel from "../models/SudokuModel.js";
 import {SudokuInputView, SudokuOutputView, SymbolInputView, BoardSizeInputView, OutputView} from "../views/SudokuViews.js";
 
 export default class SudokuController {
