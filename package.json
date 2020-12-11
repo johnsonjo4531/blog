@@ -72,7 +72,7 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "npm-run-all -s build:gatsby build:parcel",
+    "build": "npm-run-all -s build:gatsby build:parcel build:gatsby",
     "build:gatsby": "gatsby build",
     "build:parcel": "parcel build --cache-dir .parcel-cache -d static src-static/**/*.html",
     "dev": "yarn develop",
