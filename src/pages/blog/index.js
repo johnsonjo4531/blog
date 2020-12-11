@@ -13,7 +13,6 @@ import "./blog.css";
 class BlogIndex extends React.Component {
 	render() {
 		errorLogger(this.props);
-		console.log(this.props);
 		const { data } = this.props;
 		const siteTitle = data.site.siteMetadata.title;
 		const posts = data.allMdx.edges;

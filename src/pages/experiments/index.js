@@ -12,7 +12,6 @@ import "../root-styles.css";
 class BlogIndex extends React.Component {
 	render() {
 		errorLogger(this.props);
-		console.log(this.props);
 
 		const { data } = this.props;
 		const experiments = data.allExperimentsYaml.nodes;
