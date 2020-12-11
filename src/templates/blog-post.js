@@ -12,7 +12,17 @@ import "./blog-style.css";
 import { UnpublishedArticleWarning } from "../components/unpublished-warning";
 
 class BlogPostTemplate extends React.Component {
+
+	async componentDidMount() {
+		await import("../scripts/spoilers.js");
+	}
+
 	render() {
+		if (this.props.errors) {
+			console.log(this.props);
+			console.error(this.props.errors);
+			throw new Error(this.props.errors[0].message);
+		}
 		const post = this.props.data.mdx;
 		const siteTitle = this.props.data.site.siteMetadata.title;
 		const { previous, next } = this.props.pageContext;
@@ -100,6 +110,7 @@ export const pageQuery = graphql`
 			}
 		}
 		mdx(id: { eq: $id }) {
+			excerpt
 			body
 			id
 			frontmatter {

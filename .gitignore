@@ -45,6 +45,10 @@ typings/
 # Optional eslint cache
 .eslintcache
 
+.parcel-cache
+static
+dist
+
 # Optional REPL history
 .node_repl_history
 

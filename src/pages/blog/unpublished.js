@@ -5,12 +5,14 @@ import Bio from "../../components/bio";
 import Layout from "../../components/layout";
 import SEO from "../../components/seo";
 import { rhythm } from "../../utils/typography";
+import { errorLogger } from "../../utils/graphqlErrorLogger";
 
 import "./blog.css";
 import { UnpublishedArticlesWarning } from "../../components/unpublished-warning";
 
 class BlogIndex extends React.Component {
 	render() {
+		errorLogger(this.props);
 		const { data } = this.props;
 		const siteTitle = data.site.siteMetadata.title;
 		const posts = data.allMdx.edges;

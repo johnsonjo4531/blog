@@ -6,8 +6,10 @@ module.exports = {
 		aboutMe: `
 I'm a cofounder of a startup where I work as a full-stack Web Developer doing [HTML][1]/[CSS][2], [JavaScript][3], [Node.js][4], and [MongoDB][5]. Some newer projects I'm working on are using the [GRANDstack](https://grandstack.io) with Node.js. I really enjoy working with new flavors of JavaScript like ES6. 
 
-I have a B.S. in Computer Science from Utah State University (USU). My favorite class I had at University was probably Discrete Mathematics which includes some of each of the following: set theory, logic, graph theory, combinatorics, and number theory. I also enjoyed USU's Computational Geometry and Advanced Algorithms course.`,
-		// siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+I have a B.S. in Computer Science from Utah State University (USU). My favorite class I had at University was probably Discrete Mathematics which includes some of each of the following: set theory, logic, graph theory, combinatorics, and number theory. I also enjoyed USU's Computational Geometry and Advanced Algorithms course.
+
+I also like internet points which you might be able to tell from below, but I also really like helping people too.`,
+		siteUrl: `https://johndjohnsonii.com/`,
 		social: {
 			twitter: `johnfoobar`,
 			github: `johnsonjo4531`,
@@ -29,8 +31,16 @@ I have a B.S. in Computer Science from Utah State University (USU). My favorite 
 				name: `assets`,
 			},
 		},
+		`gatsby-transformer-remark`,
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
+		`gatsby-transformer-yaml`,
+		{
+			resolve: `gatsby-source-filesystem`,
+			options: {
+				path: `${__dirname}/src/data`,
+			},
+		},
 		{
 			resolve: `gatsby-plugin-mdx`,
 			options: {
@@ -40,8 +50,17 @@ I have a B.S. in Computer Science from Utah State University (USU). My favorite 
 				extensions: [".md", ".mdx"],
 				// workaround: https://github.com/gatsbyjs/gatsby/issues/16422#issuecomment-518985316
 				plugins: [`gatsby-remark-images`, `gatsby-remark-autolink-headers`],
-
 				gatsbyRemarkPlugins: [
+					{
+            resolve: 'remark-codesandbox/gatsby',
+            options: {
+							mode: 'iframe',
+							query: {
+								editorsize: 60,
+								autoresize: 1
+							}
+						},
+          },
 					`gatsby-remark-katex`,
 					`gatsby-remark-images`,
 					`gatsby-remark-autolink-headers`,

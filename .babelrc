@@ -1,0 +1,30 @@
+{
+    "plugins": [
+        [
+            "@babel/plugin-proposal-private-methods",
+            {
+                "loose": true
+            },
+            "parcel-plugin-private-methods"
+        ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "loose": true
+            },
+            "parcel-plugin-class-properties"
+        ]
+    ],
+    "presets": [
+        [
+            "babel-preset-gatsby",
+            {
+                "targets": {
+                    "browsers": [
+                        "Chrome 70"
+                    ]
+                }
+            }
+        ]
+    ]
+}

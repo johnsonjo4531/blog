@@ -5,12 +5,15 @@ import Bio from "../../components/bio";
 import Layout from "../../components/layout";
 import SEO from "../../components/seo";
 import { rhythm } from "../../utils/typography";
+import { errorLogger } from "../../utils/graphqlErrorLogger";
 
 import "../root-styles.css";
 import "./blog.css";
 
 class BlogIndex extends React.Component {
 	render() {
+		errorLogger(this.props);
+		console.log(this.props);
 		const { data } = this.props;
 		const siteTitle = data.site.siteMetadata.title;
 		const posts = data.allMdx.edges;
@@ -38,7 +41,7 @@ class BlogIndex extends React.Component {
 									<small>{node.frontmatter.date}</small>
 								</header>
 								<section>
-									<p
+									<div
 										dangerouslySetInnerHTML={{
 											__html: node.frontmatter.description || node.excerpt,
 										}}

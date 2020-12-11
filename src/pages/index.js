@@ -55,9 +55,15 @@ export default () => {
 					}}
 				/>
 				<SocialLinks />
-				<h3>
-					Visit my Blog: <Link to="/blog">NaN (Not a Number)</Link>
-				</h3>
+				<div style={{flexDirection: 'row', flexWrap: "wrap", justifyContent: 'space-around', alignItems: 'center'}}>
+					<h3>
+						Visit my Blog: <Link to="/blog">NaN (Not a Number)</Link>
+					</h3>
+					<h4>Or</h4>
+					<h3>
+						View: <Link to="/experiments">Experimental Projects</Link>
+					</h3>
+				</div>
 			</div>
 			<div className="right hexagon gradient">
 				<ReactMarkdown source={aboutMe} escapeHtml={false}></ReactMarkdown>

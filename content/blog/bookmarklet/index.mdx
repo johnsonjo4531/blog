@@ -42,7 +42,7 @@ So, you can get around this by creating a function and programmatically
 turning it into a string and wrapping that with parenthesis to turn it into an IIFE and inserting that into
 the a's href. That could like like this:
 
-```js code-example
+```js codesandbox=vanilla
 // Bookmarklet making function:
 function makeBookmarklet(bookmarkletTitle = "bookmarklet title") {
   const aElement = document.createElement("a");
@@ -83,7 +83,7 @@ an example of a comment in `main` that ruins the bookmarklet's execution.
 
 <h6>WARNING: This code example is broken on purpose for explanatory purposes:</h6>
 
-```js code-example
+```js codesandbox=vanilla
 // Bookmarklet making function:
 function makeBookmarklet(bookmarkletTitle = "bookmarklet title") {
   const aElement = document.createElement("a");

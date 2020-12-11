@@ -47,6 +47,11 @@ body {
 	}
 }
 
+body {
+	min-height: 100vh;
+	color: var(--content-text);
+}
+
 body * {
 	box-sizing: border-box;
 }

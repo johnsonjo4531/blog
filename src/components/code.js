@@ -24,7 +24,7 @@ export const Code = ({ codeString, language, ...props }={}) => {
 	);
   if (props["code-example"]) {
     return (
-      <div class="code-preview-full">
+      <div className="code-preview-full">
 				{highlight}
         <CodePreview language={language} codeString={codeString} />
       </div>

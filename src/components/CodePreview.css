@@ -2,28 +2,40 @@ iframe.code-preview {
 	width: 100%;
 	border: 1px solid #777;
 	margin-bottom: 0;
+	margin-top: -1px;
 	resize: vertical;
 	height: 350px;
 	max-height: 80vh;
 	display: block;
 	min-height: 100px;
+	border-radius: 0 0 5px 5px;
+}
+
+iframe {
+	background: var(--logo-gradient);
 }
 
 .code-preview-parent {
 	position: relative;
 }
 
-.code-preview-full.code-preview-full.code-preview-full > * {
+.code-preview-full {
+	border-radius: 5px;
+}
+
+.code-preview-full {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+}
+
+.code-preview-full > *,
+.code-preview-full > .prism-code {
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.code-preview-full.code-preview-full.code-preview-full > *:first-child {
-	margin-top: 1.5em;
-}
-
-.code-preview-full.code-preview-full.code-preview-full > *:last-child {
-	margin-bottom: 1.5em !important;
+.prism-code + .rerun {
+	margin-top: -2px;
 }
 
 .code-preview-parent {

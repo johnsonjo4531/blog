@@ -9,15 +9,21 @@ export default {
     const props = preToCodeBlock(preProps);
     // if there's a codeString and some props, we passed the test
     if (props) {
-      return <Code {...props} />;
+      return <div className="CodeBlock"><Code {...props} /></div>;
     } else {
-			debugger;
       // it's possible to have a pre without a code in it
-      return <pre {...preProps} />;
+      return <div className="Codeblock"><pre {...preProps} /></div>;
     }
   },
   code: codeProps => {
-		debugger;
     return <Code {...codeProps} />;
-  }
+	},
+	table: tableProps => {
+		return <div className="table-wrap"><table {...tableProps} /></div>
+	},
+	iframe: iframeProps => {
+		return <div className="IFrameWideBox">
+			<iframe {...iframeProps} />
+		</div>
+	}
 };;

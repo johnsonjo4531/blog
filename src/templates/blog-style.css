@@ -66,6 +66,25 @@ p {
 	margin-bottom: 1.75em;
 }
 
+blockquote.spoiler p {
+	visibility: hidden;
+	position: relative;
+}
+
+blockquote.spoiler p:after {
+	visibility: visible;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	content: 'click to show spoiler';
+	pointer-events: none;
+}
+
 .code-example {
 	padding: 1em;
 	border: 1px solid black;
@@ -84,6 +103,17 @@ code {
 	padding: 0.25em 0.25em;
 	border-radius: var(--border-radius);
 	font-family: "Courier New", Courier, monospace;
+}
+
+.IFrameWideBox > iframe {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 66vh !important;
+}
+
+.IFrameWideBox {
+	height: 66vh;
 }
 
 kbd {
@@ -113,6 +143,11 @@ details {
 }
 summary {
 	margin: 0.5em 0;
+}
+
+.table-wrap {
+	max-width: 100%;
+	overflow-x: auto;
 }
 
 button {

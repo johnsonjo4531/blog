@@ -18,17 +18,18 @@ export default props => {
 		</button>
 	);
 	if (props && props.language === "html") {
+		const blobUrl = getBlobURL(props.codeString, "text/html");
 		return (
 			<>
+				{ReBuildIframeButton}
 				<div className="code-preview-parent">
 					<iframe
 						key={timesRun}
 						className="code-preview"
 						title={props.title}
-						srcdoc={props.codeString}
+						src={blobUrl}
 					/>
 				</div>
-				{ReBuildIframeButton}
 			</>
 		);
 	} else if (props && props.language === "js") {
@@ -37,16 +38,16 @@ export default props => {
 		const blobUrl = getBlobURL(fullHtml, "text/html");
 		return (
 			<>
+				{ReBuildIframeButton}
 				<div className="code-preview-parent">
 					<iframe
 						className="code-preview"
 						title={props.title}
 						sandbox="allow-scripts"
 						src={blobUrl}
-						srcdoc={fullHtml}
+						// srcDoc={fullHtml}
 					/>
 				</div>
-				{ReBuildIframeButton}
 			</>
 		);
 	}

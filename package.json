@@ -1,17 +1,19 @@
 {
   "name": "gatsby-starter-blog",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "My site, blog, and projects",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "John Johnson",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
     "@babel/core": "^7.6.0",
+    "@babel/runtime": "^7.12.5",
     "@mdx-js/mdx": "^1.0.0",
     "@mdx-js/react": "^1.0.0",
     "concurrently": "^5.0.0",
+    "core-js": "^3.7.0",
     "gatsby": "^2.13.73",
     "gatsby-image": "^2.2.10",
     "gatsby-plugin-feed": "^2.3.7",
@@ -33,6 +35,8 @@
     "gatsby-source-filesystem": "^2.1.11",
     "gatsby-transformer-remark": "^2.6.22",
     "gatsby-transformer-sharp": "^2.2.7",
+    "gatsby-transformer-yaml": "^2.6.0",
+    "html-loader": "^1.3.2",
     "katex": "^0.10.0",
     "mdx-utils": "^0.2.0",
     "prism-react-renderer": "^1.0.0",
@@ -43,6 +47,8 @@
     "react-live": "^2.2.0",
     "react-markdown": "^4.2.2",
     "react-typography": "^0.16.19",
+    "remark-codesandbox": "^0.10.0",
+    "remark-jargon": "^2.6.0",
     "remark-parse": "^6.0.0",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
@@ -50,6 +56,9 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "babel-preset-gatsby": "^0.7.0",
+    "parcel": "^1",
     "prettier": "^1.18.2",
     "typescript": "^3.6.4"
   },
@@ -58,7 +67,6 @@
     "gatsby"
   ],
   "license": "MIT",
-  "main": "n/a",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
@@ -66,14 +74,17 @@
   "scripts": {
     "build": "concurrently 'yarn build:gatsby' 'yarn build:parcel'",
     "build:gatsby": "gatsby build",
-    "build:parcel": "parcel build -d static src-static/code-preview.html",
+    "build:parcel": "parcel build --cache-dir .parcel-cache -d static src-static/**/*.html",
     "dev": "yarn develop",
     "develop": "concurrently 'yarn develop:gatsby' 'yarn develop:parcel'",
     "develop:gatsby": "gatsby develop",
-    "develop:parcel": "parcel watch -d static src-static/code-preview.html",
+    "develop:parcel": "parcel watch --cache-dir .parcel-cache -d static src-static/**/*.html",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
-  }
+  },
+  "browserslist": [
+    "Chrome 73"
+  ]
 }

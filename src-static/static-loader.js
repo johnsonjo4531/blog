@@ -1,5 +1,10 @@
-import {html, render} from "./static-lib/lit-html.js";
-
+import { html, render } from "./static-lib/lit-html.js";
+function replaceAll(string, items, replacements) {
+	return items.reduce(
+		(string, item, i) => string.replace(item, replacements[i]),
+		string
+	);
+}
 const _log = console.log.bind(console);
 function Log(item) {
 	_log(...item.params);
@@ -16,7 +21,16 @@ function Log(item) {
 				float: right;
 			}
 		</style>
-		<div class="logItem"><span class="console-time">${item.timestamp}</span>${item.params.join(" ")}</div>
+		<div class="logItem">
+			<span class="console-time">${item.timestamp}</span
+			><span
+				>${replaceAll(
+					item.params.join(" "),
+					["&", "<", ">", '"', "'", "="],
+					["&amp;", "&lt;", "&gt", "&quot;", "&apos;", "&eq;"]
+				)}</span
+			>
+		</div>
 	`;
 }
 const types = new Map([["log", Log]]);
@@ -42,14 +56,14 @@ function Console(logItems) {
 	`;
 }
 function display(logItems) {
-	render(Console(logItems), document.getElementById('logger-interface'));
+	render(Console(logItems), document.getElementById("logger-interface"));
 }
 const logItems = [];
 window.consoleOut = (type = "log") => (...params) => {
 	logItems.push({
 		type,
 		params,
-		timestamp: new Date().toISOString()
+		timestamp: new Date().toISOString(),
 	});
 	display(logItems);
 };

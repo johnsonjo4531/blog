@@ -1,1 +1,23 @@
+ul > li > ul {
+	list-style-type: circle;
+}
+
+.table-wrap {
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+ul > li > ul > li > ul {
+	list-style-type: square;
+}
+
+ul > li > ul > li > ul > li > ul {
+	list-style-type: disc;
+}
+
+article {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
 
